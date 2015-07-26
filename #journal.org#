@@ -394,5 +394,11 @@ blab
 ** Large-scale Deep Learning at Baidu
 ** decaf
 ** Neon
-* emacs org-mode export to markdown
-M-x org-md-export-as-markdown
+* HPC and MapReduce
+
+* HPC and RDD
+* Effecient data transfer protocols for big data
+* Programming your network at run-time for big data applications
+* The National HPCC Software Exchange
+* The HPC Challenge (HPCC) Benchmark Suite 
+* Storm@twitter and S4@Yahoo!

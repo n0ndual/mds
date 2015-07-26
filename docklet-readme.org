@@ -1,0 +1,43 @@
+* dependencies
+** ubuntu trusty64
+** salt
+** wget
+** atlas account and credentials
+Vcj5DQvsISLXGQ.atlasv1.yBSJF6tBDWy6DuzkOguUQ1NmBilL2EziWudra3Y9Sv3USgc6MgzBorrYjXl7S86tF9I
+clive
+** consul start
+./consul agent -server -data-dir="/tmp/consul" -bootstrap-expect 3    -atlas=clive/infrastructure    -atlas-join    -atlas-token="Vcj5DQvsISLXGQ.atlasv1.yBSJF6tBDWy6DuzkOguUQ1NmBilL2EziWudra3Y9Sv3USgc6MgzBorrYjXl7S86tF9I" -advertise="192.168.50.10"
+** consul start manual
+consul agent -server -bootstrap -data-dir /tmp/consul -bind=192.168.50.10
+
+consul agent -data-dir /tmp/consul -bind 192.168.50.11
+consul join 192.168.50.10
+
+consul agent -data-dir /tmp/consul -bind 192.168.50.12
+consul join 192.168.50.10
+
+** Mesos!!!!
+** docker 1.7
+wget -qO- https://get.docker.com/ | sh
+** docker experimental
+   wget -qO- https://experimental.docker.com/ | sh
+** swarm
+docker run -d swarm join --addr=192.168.50.10:2375 token://<e418811ff93246831b5efa04d99b6fad>
+
+docker run -t -p <swarm_port>:2375 -t swarm manage token://e418811ff93246831b5efa04d99b6fad
+
+** network
+sudo docker -d --kv-store=consul:localhost:8500 --label=com.docker.network.driver.overlay.bind_interface=eth1
+
+sudo docker -d --kv-store=consul:localhost:8500 --label=com.docker.network.driver.overlay.bind_interface=eth1 --label=com.docker.network.driver.overlay.neighbor_ip=192.168.50.10
+** vagrant sync folder bug
+vagrant plugin install vagrant-vbguest
+** update kernel 3.18
+wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.3-vivid/linux-headers-3.18.3-031803_3.18.3-031803.201501161810_all.deb
+wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.3-vivid/linux-headers-3.18.3-031803-generic_3.18.3-031803.201501161810_amd64.deb
+wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.18.3-vivid/linux-image-3.18.3-031803-generic_3.18.3-031803.201501161810_amd64.deb
+sudo dpkg -i linux-headers-3.18.3*.deb linux-image-3.18.3*.deb
+sudo update-grub
+sudo reboot
+** service discovery
+** 不可变基础设施
