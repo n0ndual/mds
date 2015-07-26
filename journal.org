@@ -117,6 +117,7 @@ ps aux | percol | awk '{ print $2}' | xargs kill
 ** desktop
 ** theme
 * c太复杂，这一次作业先使用go语言
+* 学习使用c是一个长期的过程，这一次作业先使用go语言
 * 分布式系统的驱动力
 ** 新的应用，deep learning
 ** 数据集增大
@@ -178,6 +179,7 @@ from protocol stack to protocol heap-role-based architecture
 *** Internet最重要的设计原则是“端到端的原则”，又称边缘论，其含义是能够在端系统实现的功能就不要在网络中实现。
 *** 具体来说，就是Internet的网络层只提供不可靠的分组传输服务，而可靠性保证和安全性保证等应用需要的功能由端系统自己实现。
 *** IPSEC和NAT功能的增加一定程度上破坏了Internet的端到端原则
+<<<<<<< HEAD
 * General Purpose Big Data Processing Framework
 ** 从数据角度分为两类：无共享数据和有共享数据
 *** RDD
