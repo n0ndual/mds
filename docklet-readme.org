@@ -41,3 +41,8 @@ sudo update-grub
 sudo reboot
 ** service discovery
 ** 不可变基础设施
+** docklet的应用场景
+*** 向下管理资源，向上提供抽象接口
+*** 用户只知道有一个集群，DCOS命令
+*** 暂时不支持虚拟机登录模式
+*** 模仿mesosphere

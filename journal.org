@@ -349,7 +349,6 @@ IPMI 是强大的 —— 我们可以修改 BIOS 设置，重新启动节点，�
 * configuration tools
 ** why we use configuration tools
 If you’re responsible for the care and feeding of multiple servers, and you haven’t heard about configuration management yet, you have not been paying attention.
-
 * why CM is important
 ** from QA QC's perspect
 • Control of test hardware and software used to define software component and product quality.
@@ -398,3 +397,11 @@ blab
 ** Neon
 * emacs org-mode export to markdown
 M-x org-md-export-as-markdown
+* mesosphere
+Run this command to set up your environment and to get started:
+source /Users/clive/dcos/bin/env-setup && dcos help
+* 6.27日计划：
+** 打好基础，shell，python
+** 开始读mesosphere和openstack的源码
+** 继续docklet项目的编写
+**
