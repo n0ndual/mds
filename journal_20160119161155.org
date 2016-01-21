@@ -498,3 +498,159 @@ https://s3-external-1.amazonaws.com/cf-templates-1vm4xxu1los67-us-east-1/2015286
 ** 可能还得学习ruby才能会用chef和vagrant
 ** 实在不行，可以先用script安装kubernetes-on-mesos
 * 还需要写一个client
+* 如何provision一个linux box
+** 直接使用vagrant package, 有一个bug
+   要先把/home/vagrant/.ssh/authenrized_keys换成从vagrant官方下载的insecure key
+* emacs跳转到最后一行
+M+>
+* immutable infrastructure
+** setup operation system
+*** create coreos image using packer
+** setup DNS (hosts)
+*** SkyDNS or DNSimple pre-installed
+** install software
+*** pre-installed
+** set ssh no-password access
+*** pre-installed
+** start Mesos, Zookeeper, Kubernetes, Spark services
+*** flannel using systemd
+* kubernetes和mesos是不是完美互补
+** 资源调度如果放入操作系统层，coreos或者kubernetes中更好，变成系统调用？
+** 学习kubernetes架构和源码
+** 学习mesos源码和架构
+** 调研是否有另外的实现方式
+* 是否使用coreos？
+** mesos是否运行在docker中？
+*** 日志如何处理？
+*** 配置参数如何传递？
+*** 调试管理更麻烦！
+** 如果使用ubuntu：
+*** 安装配置方便
+*** 调试管理方便
+*** 完全自动化还需要做一些工作：
+**** etcd
+**** flannel
+* storage solutions:
+** DAS:
+** SAN:
+** NAS:Ceph, GlusterFS
+** DFS: GFS,HDFS
+** Parallel File System
+** object storage
+* why you should NOT run hadoop on SAN or NAS
+** Ceph/GlusterFs
+*** Ceph as a scalable alternative to the Hadoop
+** Lustre
+*** Rutman N. Map/reduce on lustre[R]. white paper). Technical report, Xyratex Technology Limited, Havant, Hampshire, UK, 2
+*** MapReduce over Lustre: Can RDMA-Based Approach Benefit?
+*** Performability Comparison of Lustre and HDFS for MR Applications
+** my point of view
+*** data is distributed to thousands of nodes in HDFS, SAN or NAS does not have so many shards
+*** multiple nodes contending for the same resources in SAN or NAS. BandWidth is shared.
+*** to run hadoop on SAN or NAS, IB is a must, cost/performance is worse than hdfs
+* object storage
+** motivation
+** architecture
+** performance evaluation
+* the Lustre storage architecture
+*** use cases
+*** motivation
+*** architecture
+* HPC storage solutions
+** programming model does Not support data locality, use high storage bindwidth and high interconnet
+** two character:
+*** object storage
+*** parallel file system
+** why not NFS/NAS
+*** NFS has been around for over 20 years, is very stable, easy to use and most systems administrators, as well as users, are generally familiar with its strengths and weaknesses
+*** In low end HPC storage environments, NFS can still be a very effective medium for distributing data, where low end HPC storage systems are defined as capacity under 100TB and high end generally above 1PB
+** why not SAN
+*** SAN file systems are capable of very high performance, but are extremely expensive to scale up since they are implemented using Fibre Channel and therefore, each node that connects to the SAN must have a Fibre Channel card to connect to the Fibre channel switch.
+* Big data with GlusterFS
+** glusterfs 支持绝大部分商用存储硬件，不关心硬件架构
+** glusterfs 目前不支持data locality, hadoop 可以直接使用glusterfs但性能会差
+** glusterfs 计划3.7版本支持hadoop的data locality
+** 如果不使用infiniband,
+** 目前将就着用
+* performance evaluation
+** MapReduce on hdfs, ceph, glusterfs, lustre, mapr with or without infiniband/RDMA
+** weave, docker/network, kubernetes with or without rdma
+* 下一步工作
+** 资源监控，与lpd的页面集成
+** 把MPI集成上去
+** 把spark所依赖的存储环境配置好
+** 部署优化
+* 11.24 周报
+** 上周五关于如何在物理机上部署的讨论之后，又发现了一个问题；
+*** apache mesos 和mesosphere 不希望把mesos master 和slave 运行在容器中，但coreos的哲学是所有应用和服务都运行在容器中。dcos的做法是自己编译了一个包含所有依赖的二进制包。这个矛盾看起来很小，但细思极恐。资源调度是数据中心操作系统的核心，coreos也是一个云操作系统，必须把资源调度作为一个系统接口，只不过目前还没有实现。未来还有很多可能，目前还是用最简单的方案吧。
+*** 借鉴dcos的做法，需要对每个依赖每次升级编译打包，太麻烦
+*** 把mesos master和slave运行在容器中，有bug，缺少社区支持，不稳定
+*** 目前的打算是试一下snappy ubuntu，自己打包一个镜像
+** 读了几篇存储架构的论文，调研了存储市场，发现了一些研究空白
+* 学习音乐
+** 学习乐理，学习grageband
+** 学习电钢琴
+* IDC,gartner,cloud security alliance: 咨询公司
+** IDC's worldwide big data taxonomy
+** IDC's worldwide storage for big data and business analytics taxonomy
+* 永生，机器人
+** 一个人生目标：生存，探索真理
+** 方法：理性，逻辑，归纳法
+** 唯有成为一个机器人，才能对抗死亡
+* MPICH on mesos
+** 第一步，跑通mesos的自带示例
+** 第二步，在单独集群上跑通MPICH
+** 第三步，在mesos上调试MPICH
+* 未来一年计划
+** 音乐入门
+*** 宋大叔学音乐，p=4
+*** 钢琴入门教程，p=4
+*** 指法练习，p=4
+*** 乐理，p=4
+** 数学入门
+*** 朴素集合论，公理集合论，p=3
+*** 数理逻辑，高优先级，p=3
+*** 哥德尔不完备定理，p=3
+** 哲学入门
+*** 弗雷格，p=3
+*** 罗素，p=3
+*** 逻辑哲学论, p=3
+*** 实证论，p=3
+*** 20世纪哲学思潮, p=3
+** 科研入门
+*** 调度算法，p=5
+*** 调度框架，p=5
+*** 存储解决方案，p=3
+** Docklet
+*** mesos集成mpi，p=4
+*** 使用计费，p=4
+* 时间分配优先级
+** 原则
+*** 保持工作，生活，娱乐的平衡
+*** 每周工作任务优先完成
+*** 近期目标优先：每周工作，出国事业，哲学和数学研究
+*** 音乐和艺术是保持心灵平衡的关键
+* hydra on mesos
+** mesos framework已调通
+** mpiexec.hydra 报错
+** 需要进一步学习hydra
+* mesos资源调度算法DRF
+** 算法本身是否合理
+** 是否真的适合企业内部环境
+** 是否适合公有云环境
+** 如何计费
+* MapR安装部署
+* 下周报告：
+** 1.自己机器上安装使用mapr
+** 2.协助安博部署系统
+** 3.部署dockletM
+* 下一个月计划：
+** 三周后报告dockletM可用了。
+** 三周后读完osdi2014，sosp2015，思考自己的研究方向
+** 一个月后读完集合论
+** 读完音乐理论
+* 最近的生活感悟
+** 情感波动的时候，就写写日记，创作一些素材。为了排遣孤独感，必须进行创作：民谣，小说，音乐，情色
+** 大脑疲倦的时候，就出去散散步，一天至少保证2个小时的运动，散步也算
+** 早饭要吃，午饭晚饭少吃，不抽烟少喝酒。
+*

@@ -1,0 +1,61 @@
+* container control plane
+** Architecture
+*** control plane and data plane and management plane
+*** microservices orchestration
+*** software defined network and storage
+** Use Cases
+*** host any microservices
+**** DNS
+**** LoadBalance
+**** public IP
+*** can run on-premise or cloud
+* SDN新的发展趋势
+** VXLAN
+*** cisco BGP-EVPN with VXLAN
+*** open vswitch and GRE
+** Docker Libnetwork
+** Kubernetes networking
+** control plane and data plane
+* 计划
+** 1 使用libnetwork，ovs，kubernetes
+** 2 使用vpn，skydns，elb
+** 3 搭建基于地理位置的service discovery和docker-swarm使用环境
+** 4 搭建glusterfs和mapr文件系统
+** 5 搭建DockletM和Docklet
+**  6 研究网络，存储，架构，发论文
+** 7 机器学习，数理逻辑，音乐理论
+* 网络
+** 如何手动设置docker，open vswitch
+** dokku
+** docker-machine的原理
+** swarm的架构
+** docker engine的架构
+** docker libnetwork
+** kubernetes的网络架构
+* 最重要的还是网络
+** 虚拟机的网络设置
+** vlan的划分
+** vxlan的划分
+** vpn的设置，托管自己主机
+** overlay网络的设置
+* Kubernetes的网络
+* docker技术栈搭建混合云，面向企业用户
+** setup
+*** 安装docker-machine，在swarm-master上安装docker
+*** 拿到集群所有机器的私钥
+*** 使用docker-machine创建consul集群
+**** 创建consul-master节点
+docker-machine create -d generic --generic-ssh-user root --generic-ssh-key /root/identity_files/dylan --generic-ip-address 159.203.129.91 consul-master
+**** 启动consul容器
+docker $(docker-machine config consul-master) run -d -p "8500:8500" -h "consul" progrium/consul -server -advertise $(docker-machine ip consul-master) -bootstrap
+*** 使用docker-machine创建swarm集群
+**** 创建swarm-master
+docker-machine create -d generic --generic-ssh-user root --generic-ssh-key /root/.ssh/id_rsa --generic-ip-address 45.55.48.147 --swarm --swarm-master --swarm-discovery "consul://$(docker-machine ip consul-master):8500" --engine-opt="cluster-store=consul://$(docker-machine ip consul-master):8500" --engine-opt="cluster-advertise=eth0:2376" swarm-master
+**** 创建swarm-agent-1
+docker-machine create -d generic --generic-ssh-user root --generic-ssh-key /root/identity_files/swarm-agent-1 --generic-ip-address 104.131.127.110 --swarm --swarm-discovery "consul://$(docker-machine ip consul-master):8500" --engine-opt="cluster-store=consul://$(docker-machine ip consul-master):8500" --engine-opt="cluster-advertise=eth0:2376" swarm-agent-1
+**** 创建swarm-agent-2
+docker-machine create -d generic --generic-ssh-user root --generic-ssh-key /root/identity_files/swarm-agent-2 --generic-ip-address 104.131.185.138 --swarm --swarm-discovery "consul://$(docker-machine ip consul-master):8500" --engine-opt="cluster-store=consul://$(docker-machine ip consul-master):8500" --engine-opt="cluster-advertise=eth0:2376" swarm-agent-2
+**** 切换到swarm-master环境
+eval $(docker-machine env --swarm swarm-master)
+*** 编写compose文件
+* docker技术栈配合nginx做代理

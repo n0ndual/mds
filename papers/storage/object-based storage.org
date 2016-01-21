@@ -1,0 +1,30 @@
+* Abstract
+However, the interface ultimately determines the functionality supported by devices, and current interface is holding system designers back. Storage technology has progressed to a state/point that a change in the device interface is needed.
+* Introduction
+** Industry has begun to place pressure on the interface to storage, demanding that it do more.
+** Recently industry and academic research suggests a shift in storage technology, in which devices evolve from relatively unintelligent and externally managed to intelligent, self-managed, and aware of the storage applications they serve.
+** Objects can be regarded as the convergence of two technologies: files and blocks.
+* storage today and trade-off
+** the three most common used architecture today are:
+*** direct-attached storage(DAS)
+**** there are limitations on connectivity. SCSI, for example, is limited by the width of the bus (a 16-bit bus can host most16 hosts or devices).
+*** storage-area networks(SANs)
+**** To address the connectivity limits of DAS , and consequently enable the consolidation and sharing of storage devices, the SAN was introduced. A SAN is a switched fabric that provides a fast, scalable interconnect for large numbers of hosts and storage devices
+**** With this added connectivity, however, came the need for better security
+*** network-attached storage(NAS)
+*** SAN file system, has recently been introduced to capture the features of both NAS and SANs.
+** difference between NAS and SAN/DAS
+*** SAN and DAS are both block-based. file system is responsible for mapping its data structures to blocks on the storage
+*** For multiple hosts to share data blocks, they must also share metadata, and do so in a manner that guarantees metadata consistency among the hosts
+*** Most other infrastructures only allow hosts to share data indirectly through files by using NAS.
+** NAS
+*** NAS is just another name for file serving.
+*** With NAS, the metadata describing how files are stored on devices is managed completely on the file server
+*** This level of indirection enables cross-platform data sharing but comes at the cost of directing all I/O through the single file server.
+*** In either case, clients will be limited by the performance of the file server and will rarely see the aggregate performance of the storage devices
+** SAN file system
+*** To address the performance limitations of NAS, SAN file systems have recently appeared
+*** In a SAN file system, the file server and clients are all connected to a SAN on which the file system is stored.
+*** Given this connectivity, the file server can share file metadata with the clients, thus allowing the clients to directly access the storage devices.
+** the Trade-Off
+*** The trade-off in today’s architectures is therefore security and cross-platform data sharing (files) vs. high performance (blocks).

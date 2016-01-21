@@ -1,0 +1,13 @@
+* Cluster as a Service
+这个概念在云计算初期提出，最开始亚马逊只能提供单个的vm实例，需要用户自己组集群，就像现在的DigitalOcean。因此，当时一些其他系统来研究如何直接给用户提供虚拟机群。OpenNebula和Openstack算是其中的代表。
+** Brock M, Goscinski A. A technology to expose a cluster as a service in a cloud[C]//Proceedings of the Eighth Australasian Symposium on Parallel and Distributed Computing-Volume 107. Australian Computer Society, Inc., 2010: 3-12.
+** Doelitzscher F, Held M, Reich C, et al. Viteraas: Virtual cluster as a service[C]//Cloud Computing Technology and Science (CloudCom), 2011 IEEE Third International Conference on. IEEE, 2011: 652-657.
+** Sotomayor B, Montero R S, Llorente I M, et al. Capacity leasing in cloud systems using the opennebula engine[C]//Workshop on Cloud Computing and its Applications. 2008, 3.
+** Milojičić D, Llorente I M, Montero R S. Opennebula: A cloud management tool[J]. IEEE Internet Computing, 2011 (2): 11-14.
+* 我之前调研的一些数据中心操作系统的论文，或许你能用上
+** Zaharia M, Hindman B, Konwinski A, et al. The datacenter needs an operating system[C]//Proceedings of the 3rd USENIX conference on Hot topics in cloud computing. USENIX Association, 2011: 17-17.
+** Barroso L A, Clidaras J, Hölzle U. The datacenter as a computer: An introduction to the design of warehouse-scale machines[J]. Synthesis lectures on computer architecture, 2013, 8(3): 1-154.
+** Patterson D A. The data center is the computer[J]. Communications of the ACM, 2008, 51(1): 105-105
+* 容器技术的一些论文
+** Felter W, Ferreira A, Rajamony R, et al. An updated performance comparison of virtual machines and linux containers[J]. technology, 2014, 28: 32.
+** Tosatto A, Ruiu P, Attanasio A. Container-Based Orchestration in Cloud: State of the Art and Challenges[C]//Complex, Intelligent, and Software Intensive Systems (CISIS), 2015 Ninth International Conference on. IEEE, 2015: 70-75.
